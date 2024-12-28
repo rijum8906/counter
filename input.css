@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form {
+  width: 300px;
+  margin: 50px auto;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  padding-top: 18px; /* Adjust for label */
+  padding-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: #007bff;
+}
+
+.label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #888;
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Move label to top when input is focused or has value */
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label {
+  top: -8px;
+  left: 8px;
+  font-size: 12px;
+  color: #007bff;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+  margin-top: 5px;
+}
