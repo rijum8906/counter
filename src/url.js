@@ -1,2 +1,3 @@
-export const signinUrl = "http://localhost:8000/api/signin";
-export const addParticipantUrl = "http://localhost:8000/api/add-participant";
+export const signinUrl = "https://backend-production-a91d.up.railway.app/api/signin";
+export const addParticipantUrl = "https://backend-production-a91d.up.railway.app/api/add-participant";
+export const getParticipantsList = "https://backend-production-a91d.up.railway.app/api/get-participants";
