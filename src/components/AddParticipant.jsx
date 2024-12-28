@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { Button } from "flowbite-react";
+import { Button, Label, TextInput, Select } from "flowbite-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { addParticipantUrl } from "./../url";
 
 const AddParticipant = () => {
+  const token = localStorage.getItem("token");
+  let isAdmin = false;
+  if (token) {
+    isAdmin = JSON.parse(atob(token.split(".")[1])).isAdmin;
+  }
+
   const [participant, setParticipant] = useState({
     name: "",
     house: "Udaigiri",
@@ -20,7 +26,7 @@ const AddParticipant = () => {
     "800m",
     "1500m",
     "3000m",
-    "Javeline",
+    "Javelin",
     "Shotput",
     "Discus",
     "High Jump",
@@ -39,15 +45,11 @@ const AddParticipant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        addParticipantUrl,
-        participant,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await axios.post(addParticipantUrl, participant, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       alert("Participant added successfully!");
       setParticipant({
         name: "",
@@ -65,55 +67,54 @@ const AddParticipant = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-4 border rounded shadow-md max-w-md mx-auto"
+      className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"
     >
-      <div className="mb-4">
+      <div className="mb-6 flex justify-between">
         <Link to="/">
-          <Button>See Participants</Button>
+          <Button color="info">See Participants</Button>
         </Link>
+        {isAdmin && (
+          <Link to="/admin">
+            <Button color="purple">Admin Panel</Button>
+          </Link>
+        )}
       </div>
+
       <div className="mb-4">
-        <label className="block font-medium mb-2" htmlFor="name">
-          Name
-        </label>
-        <input
-          type="text"
+        <Label htmlFor="name" value="Name" />
+        <TextInput
           id="name"
           name="name"
           value={participant.name}
           onChange={handleChange}
-          placeholder="Enter name"
-          className="w-full p-2 border rounded"
+          placeholder="Enter participant's name"
+          required
         />
       </div>
+
       <div className="mb-4">
-        <label className="block font-medium mb-2" htmlFor="house">
-          House
-        </label>
-        <select
+        <Label htmlFor="house" value="House" />
+        <Select
           id="house"
           name="house"
           value={participant.house}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
           required
         >
           <option value="Udaigiri">Udaigiri</option>
           <option value="Nilgiri">Nilgiri</option>
           <option value="Shiwalik">Shiwalik</option>
           <option value="Arawalli">Arawalli</option>
-        </select>
+        </Select>
       </div>
+
       <div className="mb-4">
-        <label className="block font-medium mb-2" htmlFor="category">
-          Category
-        </label>
-        <select
+        <Label htmlFor="category" value="Category" />
+        <Select
           id="category"
           name="category"
           value={participant.category}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
           required
         >
           <option value="Under 14 Boys">Under 14 Boys</option>
@@ -121,18 +122,16 @@ const AddParticipant = () => {
           <option value="Under 19 Boys">Under 19 Boys</option>
           <option value="Junior Girls">Junior Girls</option>
           <option value="Senior Girls">Senior Girls</option>
-        </select>
+        </Select>
       </div>
+
       <div className="mb-4">
-        <label className="block font-medium mb-2" htmlFor="event">
-          Event
-        </label>
-        <select
+        <Label htmlFor="event" value="Event" />
+        <Select
           id="event"
           name="event"
           value={participant.event}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
           required
         >
           {events.map((event, index) => (
@@ -140,18 +139,16 @@ const AddParticipant = () => {
               {event}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
+
       <div className="mb-4">
-        <label className="block font-medium mb-2" htmlFor="rank">
-          Rank
-        </label>
-        <select
+        <Label htmlFor="rank" value="Rank" />
+        <Select
           id="rank"
           name="rank"
           value={participant.rank}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
           required
         >
           {[...Array(8)].map((_, index) => (
@@ -159,10 +156,11 @@ const AddParticipant = () => {
               {index + 1}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
-      <div>
-        <Button type="submit" color="success">
+
+      <div className="mt-6 text-center">
+        <Button type="submit" color="success" size="lg">
           Add Participant
         </Button>
       </div>

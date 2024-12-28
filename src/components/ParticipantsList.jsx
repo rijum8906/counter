@@ -3,7 +3,6 @@ import { Table } from "flowbite-react";
 import axios from "axios";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { getParticipantsList } from "./../url";
 
 const ParticipantsList = () => {
   const [participants, setParticipants] = useState([]);
@@ -14,7 +13,7 @@ const ParticipantsList = () => {
   // Fetch participants from API
   useEffect(() => {
     axios
-      .get(getParticipantsList, {
+      .get("http://localhost:8000/api/get-participants", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
