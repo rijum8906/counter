@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm i",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "css": "npx tailwindcss -i ./src/input.css -o ./public/css/styles.css --watch"
+    "css": "npx tailwindcss -i ./src/input.css -o ./public/css/styles.css --watch",
+    "serve": "serve dist/",
+    "start": "serve dist/",
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -28,6 +30,7 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.13.0",
     "prettier": "3.4.2",
+    "serve": "^14.2.4",
     "tailwindcss": "^3.4.17",
     "vite": "^6.0.3"
   }
