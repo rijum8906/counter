@@ -70,9 +70,6 @@ const ParticipantsList = () => {
   return (
     <div>
       <div className="flex space-x-4">
-        <Link to="/add">
-          <Button>Add Participant</Button>
-        </Link>
         <Button onClick={logOut}>Log Out</Button>
       </div>
       <div className="my-4">

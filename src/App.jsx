@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/admin" element={<AdminPrivate><AdminParticipantsList /></AdminPrivate>} />
         <Route path="/" element={<Private><ParticipantsList /></Private>} />
-        <Route path="/add" element={<Private><AddParticipant /></Private>} />
+        <Route path="/add" element={<AdminPrivate><AddParticipant /></AdminPrivate>} />
         <Route path="/signin" element={<Signin />} />
       </Routes>
     </Router>
