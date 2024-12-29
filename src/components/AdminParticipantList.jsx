@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Modal, Button, TextInput, Select } from "flowbite-react";
+import { Table, Label, Modal, Button, TextInput, Select } from "flowbite-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getParticipantsList, editParticipantUrl } from "./../url";
@@ -12,6 +12,21 @@ const ParticipantsList = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [currentParticipant, setCurrentParticipant] = useState(null);
 
+const availableEvents = [
+    "100m",
+    "200m",
+    "400m",
+    "800m",
+    "1500m",
+    "3000m",
+    "Javelin",
+    "Shotput",
+    "Discus",
+    "High Jump",
+    "Long Jump",
+    "Triple Jump",
+  ];
+  
   // Fetch participants from API
   useEffect(() => {
     axios
@@ -243,23 +258,44 @@ const ParticipantsList = () => {
                   </option>
                 ))}
               </Select>
-              <TextInput
-                name="event"
-                placeholder="Event"
-                value={currentParticipant.event}
-                onChange={(e) =>
-                  setCurrentParticipant((prev) => ({ ...prev, event: e.target.value }))
-                }
-              />
-              <TextInput
-                name="rank"
-                placeholder="Rank"
-                type="number"
-                value={currentParticipant.rank}
-                onChange={(e) =>
-                  setCurrentParticipant((prev) => ({ ...prev, rank: e.target.value }))
-                }
-              />
+              <div className="mb-4">
+  <Label htmlFor="event" value="Event" />
+  <Select
+    id="event"
+    name="event"
+    value={currentParticipant.event}
+    onChange={(e) =>
+      setCurrentParticipant((prev) => ({ ...prev, event: e.target.value }))
+    }
+    required
+  >
+    <option value="">Select Event</option>
+    {availableEvents.map((event, index) => (
+            <option key={index} value={event}>
+              {event}
+            </option>
+          ))}
+  </Select>
+</div>
+
+<div className="mb-4">
+  <Label htmlFor="rank" value="Rank" />
+  <Select
+    id="rank"
+    name="rank"
+    value={currentParticipant.rank}
+    onChange={(e) =>
+      setCurrentParticipant((prev) => ({ ...prev, rank: parseInt(e.target.value) }))
+    }
+    required
+  >
+    {[...Array(8)].map((_, index) => (
+      <option key={index} value={index + 1}>
+        {index + 1}
+      </option>
+    ))}
+  </Select>
+</div>
             </div>
           </Modal.Body>
           <Modal.Footer>
