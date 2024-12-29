@@ -70,9 +70,6 @@ const AddParticipant = () => {
       className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"
     >
       <div className="mb-6 flex justify-between">
-        <Link to="/">
-          <Button color="info">See Participants</Button>
-        </Link>
         {isAdmin && (
           <Link to="/admin">
             <Button color="purple">Admin Panel</Button>
