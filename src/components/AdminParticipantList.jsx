@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Table, Label, Modal, Button, TextInput, Select } from "flowbite-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { getParticipantsList, editParticipantUrl } from "./../url";
+import { editParticipantUrl } from "./../url";
 
-const ParticipantsList = () => {
-  const [participants, setParticipants] = useState([]);
+const ParticipantsList = ({ participants }) => {
   const [filteredParticipants, setFilteredParticipants] = useState([]);
   const [filter, setFilter] = useState({ house: "", name: "", event: "", category: "" });
   const [totalPoints, setTotalPoints] = useState(0);
@@ -26,21 +25,6 @@ const availableEvents = [
     "Long Jump",
     "Triple Jump",
   ];
-  
-  // Fetch participants from API
-  useEffect(() => {
-    axios
-      .get(getParticipantsList, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        setParticipants(response.data.participants);
-        setFilteredParticipants(response.data.participants);
-      })
-      .catch((error) => console.error("Error fetching participants:", error));
-  }, []);
 
   // Update filtered participants whenever filters or data change
   useEffect(() => {
